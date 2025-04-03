@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "9U69YBiTPVrGlnGJqXjch+XIocZ7YqfBR23P6d5i9SA=",
+  "Source": "MyBackstageAPI",
+  "BasePath": "_content/MyBackstageAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

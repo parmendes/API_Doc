@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyBackstageAPI</name>
+    </assembly>
+    <members>
+        <member name="M:MyBackstageAPI.Controllers.WeatherForecastController.Get">
+            <summary>
+            Gets the weather forecast (available in versions 1 and 2).
+            </summary>
+        </member>
+        <member name="M:MyBackstageAPI.Controllers.WeatherForecastController.GetSummaryList">
+            <summary>
+            Exclusive method for version 2: returns the list of weather summaries.
+            </summary>
+        </member>
+        <member name="M:MyBackstageAPI.Controllers.WeatherForecastController.Post(MyBackstageAPI.WeatherForecast)">
+            <summary>
+            Adds a new weather forecast.
+            </summary>
+            <param name="forecast">The weather forecast to add.</param>
+            <response code="201">Returns the newly created weather forecast.</response>
+            <remarks>
+            Sample request:
+            
+            ```json
+            POST /WeatherForecast
+            {
+                "Date": "2022-01-01T00:00:00",
+                "TemperatureC": 23,
+                "TemperatureF": 74,
+                "Summary": "Sunny"
+            }
+            ``` 
+            </remarks>
+        </member>
+        <member name="M:MyBackstageAPI.Controllers.WeatherForecastController.Put(System.DateTime,MyBackstageAPI.WeatherForecast)">
+            <summary>
+            Updates an existing weather forecast.
+            </summary>
+        </member>
+        <member name="M:MyBackstageAPI.Controllers.WeatherForecastController.Delete(System.DateTime)">
+            <summary>
+            Removes a weather forecast.
+            </summary>
+        </member>
+        <member name="P:MyBackstageAPI.WeatherForecast.Date">
+            <summary>
+            The date of the forecast.
+            </summary>
+        </member>
+        <member name="P:MyBackstageAPI.WeatherForecast.TemperatureC">
+            <summary>
+            Temperature in Celsius.
+            </summary>
+        </member>
+        <member name="P:MyBackstageAPI.WeatherForecast.TemperatureF">
+            <summary>
+            A short weather description.
+            </summary>
+        </member>
+        <member name="P:MyBackstageAPI.WeatherForecast.Summary">
+            <summary>
+            A short weather description.
+            </summary>
+        </member>
+    </members>
+</doc>

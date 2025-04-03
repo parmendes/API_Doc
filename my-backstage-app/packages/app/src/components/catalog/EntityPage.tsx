@@ -204,7 +204,7 @@ const serviceEntityPage = (
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/swagger" title="Swagger UI">
-      <SwaggerUIComponent specUrl="https://127.0.0.1:7293/swagger/v1/swagger.json" />
+      <SwaggerUIComponent specUrl="http://127.0.0.1:5036/swagger/v1/swagger.json" />
     </EntityLayout.Route>
   </EntityLayout>
 );
@@ -243,7 +243,7 @@ const websiteEntityPage = (
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/swagger" title="Swagger UI">
-      <SwaggerUIComponent specUrl="https://127.0.0.1:7293/swagger/v1/swagger.json" />
+      <SwaggerUIComponent specUrl="http://127.0.0.1:5036/swagger/v1/swagger.json" />
     </EntityLayout.Route>
   </EntityLayout>
 );
@@ -283,7 +283,7 @@ const componentPage = (
 
 const ApiDefinitionContent = () => {
   useEffect(() => {
-    validateOpenApiVersion("https://127.0.0.1:7293/swagger/v1/swagger.json");
+    validateOpenApiVersion("http://127.0.0.1:5036/swagger/v1/swagger.json");
   }, []);
 
   return <EntityApiDefinitionCard />;
@@ -323,7 +323,7 @@ const apiPage = (
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/swagger" title="Swagger UI">
-      <SwaggerUIComponent specUrl="https://127.0.0.1:7293/swagger/v1/swagger.json" />
+      <SwaggerUIComponent specUrl="http://127.0.0.1:5036/swagger/v1/swagger.json" />
     </EntityLayout.Route>
   </EntityLayout>
 );
@@ -412,7 +412,7 @@ const systemPage = (
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/swagger" title="Swagger UI">
-      <SwaggerUIComponent specUrl="https://127.0.0.1:7293/swagger/v1/swagger.json" />
+      <SwaggerUIComponent specUrl="http://127.0.0.1:5036/swagger/v1/swagger.json" />
     </EntityLayout.Route>
   </EntityLayout>
 );
@@ -435,7 +435,7 @@ const domainPage = (
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/swagger" title="Swagger UI">
-      <SwaggerUIComponent specUrl="https://127.0.0.1:7293/swagger/v1/swagger.json" />
+      <SwaggerUIComponent specUrl="http://127.0.0.1:5036/swagger/v1/swagger.json" />
     </EntityLayout.Route>
   </EntityLayout>
 );

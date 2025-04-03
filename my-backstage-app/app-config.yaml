@@ -89,7 +89,7 @@ catalog:
   #   - allow: [Component, System, API, Resource, Location, Template, User, Group]
   locations:
     - type: url
-      target: https://github.com/p17edro/MyBackstageAPI/tree/main/apis/*/*/*.yaml
+      target: https://github.com/parmendes/API_Doc/tree/main/apis/*/*/*.yaml
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
       target: ../../examples/entities.yaml
