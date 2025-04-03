@@ -14,7 +14,7 @@ spec:
     $text: http://127.0.0.1:5036/swagger/v1/swagger.json
 
 ---
-apiVersion: backstage.io/v2alpha1
+apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: my-backstage-api-alphav2
