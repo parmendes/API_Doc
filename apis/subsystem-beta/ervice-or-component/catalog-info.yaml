@@ -13,4 +13,4 @@ spec:
   lifecycle: development
   owner: user:guest
   definition: 
-    $text: http://github.com/parmendes/API_Doc/blob/main/apis/subsystem-beta/ervice-or-component/WeatherForecastAPI.yaml # Path to the OpenAPI definition file
+    $text: http://localhost:5036/swagger/v1/swagger.json # Path to the OpenAPI definition file
