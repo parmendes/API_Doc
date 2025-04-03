@@ -10,7 +10,8 @@ spec:
   type: openapi
   lifecycle: production
   owner: user:guest
-  definition: http://127.0.0.1:5036/swagger/v1/swagger.json
+  definition: 
+    $text: http://127.0.0.1:5036/swagger/v1/swagger.json
 
 ---
 apiVersion: backstage.io/v2alpha1
@@ -26,4 +27,4 @@ spec:
   lifecycle: development
   owner: user:guest
   definition: 
-    $text: 'http://127.0.0.1:5036/swagger/v1/swagger.json'
+    $text: http://127.0.0.1:5036/swagger/v1/swagger.json
