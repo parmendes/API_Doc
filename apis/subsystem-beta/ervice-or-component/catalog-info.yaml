@@ -12,5 +12,4 @@ spec:
   type: openapi
   lifecycle: development
   owner: user:guest
-  definition: 
-    $text: ./WeatherForecastAPI.json # Path to the OpenAPI definition file
+  definition: ./WeatherForecastAPI.json # Path to the OpenAPI definition file
