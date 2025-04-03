@@ -1,77 +1,99 @@
 app:
-  # Title of the Backstage application
   title: Scaffolded Backstage App
-  # Base URL where the app is hosted
   baseUrl: http://localhost:3000
 
 organization:
-  # Name of the organization using this Backstage instance
   name: My Company
 
 backend:
   logging:
-      # Logging level for the backend (e.g., debug, info, warn, error)
       level: debug
-  # Base URL for the backend service
+  # Used for enabling authentication, secret is shared by all backend plugins
+  # See https://backstage.io/docs/auth/service-to-service-auth for
+  # information on the format
+  # auth:
+  #   keys:
+  #     - secret: ${BACKEND_SECRET}
   baseUrl: http://localhost:7007
   listen:
-    # Port where the backend listens for requests
     port: 7007
+    # Uncomment the following host directive to bind to specific interfaces
+    # host: 127.0.0.1
   csp:
-    # Content Security Policy settings for the backend
     connect-src: ["'self'", 'http:', 'https:']
+    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
   cors:
-    # CORS settings to allow requests from specific origins
     origin: 
       - "http://localhost:3000"
       - "http://localhost:5036"
-    # HTTP methods allowed for CORS
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
-    # Allow credentials (e.g., cookies) in CORS requests
     credentials: true
+  # This is for local development only, it is not recommended to use this in production
+  # The production database configuration is stored in app-config.production.yaml
   database:
-    # Database configuration for local development
     client: better-sqlite3
     connection: ':memory:'
   reading:
-    # Hosts allowed for reading data
     allow:
       - host: '127.0.0.1:7293'
       - host: '127.0.0.1:5036'
+  # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
 integrations:
   github:
     - host: github.com
-      # GitHub Personal Access Token (PAT) for authentication
+      # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
+      # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
       token: ${GITHUB_TOKEN}
+    ### Example for how to add your GitHub Enterprise instance using the API:
+    # - host: ghe.example.net
+    #   apiBaseUrl: https://ghe.example.net/api/v3
+    #   token: ${GHE_TOKEN}
 
+###proxy:
+  ### Example for how to add a proxy endpoint for the frontend.
+  ### A typical reason to do this is to handle HTTPS and CORS for internal services.
+  ### endpoints:
+  ###  '/swagger':
+  ###    target: 'http://localhost:5036/swagger'
+  ###    changeOrigin: true
+
+# Reference documentation http://backstage.io/docs/features/techdocs/configuration
+# Note: After experimenting with basic setup, use CI/CD to generate docs
+# and an external cloud storage when deploying TechDocs for production use-case.
+# https://backstage.io/docs/features/techdocs/how-to-guides#how-to-migrate-from-techdocs-basic-to-recommended-deployment-approach
 techdocs:
-  # Configuration for TechDocs, Backstage's documentation feature
-  builder: 'local' # Options: 'local', 'external'
+  builder: 'local' # Alternatives - 'external'
   generator:
-    # Determines where the TechDocs generator runs
-    runIn: 'docker' # Options: 'docker', 'local'
+    runIn: 'docker' # Alternatives - 'local'
   publisher:
-    # Where the generated documentation is published
-    type: 'local' # Options: 'local', 'googleGcs', 'awsS3'
+    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
 auth:
+  # see https://backstage.io/docs/auth/ to learn about auth providers
   providers:
-    # Guest authentication provider for unauthenticated users
+    # See https://backstage.io/docs/auth/guest/provider
     guest: {}
 
 scaffolder:
-  # Configuration for software templates used in scaffolding new projects
+  # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
+  # import:
+  #   entityFilename: http://localhost:8080/catalog-info.yaml
+  #   pullRequestBranchName: backstage-integration
+  #   dryRun: false
+  #   #entityFilename: catalog-info.yaml
+  # rules:
+  #   - allow: [Component, System, API, Resource, Location, Template, User, Group]
   locations:
-    # Remote YAML files defining catalog entities
     - type: url
       target: https://github.com/parmendes/API_Doc/tree/main/apis/*/*/*.yaml
-    # Local example data for testing
+    # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
       target: ../../examples/entities.yaml
-    # Local example template for scaffolding
+    # Local example template
     - type: file
       target: ../../examples/template/template.yaml
       rules:
@@ -81,9 +103,12 @@ catalog:
       target: ../../examples/org.yaml
       rules:
         - allow: [User, Group]
-  # Enable URL readers for searching catalog entities
   useUrlReadersSearch: true
 
+kubernetes:
+  # see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options
+
+# see https://backstage.io/docs/permissions/getting-started for more on the permission framework
 permission:
-  # Enable or disable the permission framework
+  # setting this to `false` will disable permissions
   enabled: true
