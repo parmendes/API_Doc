@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: my-backstage-api2
+  name: my-backstage-api-beta
   description: 2# CATALOG V2 - A REST API with Swashbuckle and NSwag.
   tags:
     - rest
