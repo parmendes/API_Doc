@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: my-backstage-api
+  name: my-backstage-api-alphav1
   description: Wildcard - A REST API with Swashbuckle and NSwag.
   tags:
     - rest
@@ -13,10 +13,10 @@ spec:
   definition: 'http://127.0.0.1:5036/swagger/v1/swagger.json'
 
 ---
-apiVersion: backstage.io/v1alpha1
+apiVersion: backstage.io/v2alpha1
 kind: API
 metadata:
-  name: my-backstage-api-alpha
+  name: my-backstage-api-alphav2
   description: Wildcard - A REST API with Swashbuckle and NSwag (v2).
   tags:
     - rest
