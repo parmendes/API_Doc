@@ -27,4 +27,4 @@ spec:
   lifecycle: development
   owner: user:guest
   definition: 
-    $text: http://127.0.0.1:5036/swagger/v2/swagger.json
+    $text: http://127.0.0.1:5036/swagger/v1/swagger.json
