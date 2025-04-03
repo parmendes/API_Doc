@@ -1,0 +1,16 @@
+#Backstage catalog-info file defining an API entity
+apiVersion: backstage.io/v1alpha1 # Specifies the version of the Backstage API schema
+kind: API # Defines this entity as an API
+
+metadata:
+  name: my-backstage-api # Unique name identifying the API in Backstage
+  description: Version 2 of the API # Brief description of the API
+
+spec:
+  type: openapi # Specifies that this API follows the OpenAPI specification
+  lifecycle: development # Indicates the current development stage of the API (e.g., development, production, deprecated)
+  owner: guest # Specifies the owner or responsible team for the API
+  definition:
+    $text: ./apis/WeatherForecastAPI.json # Path to the OpenAPI definition file
+
+

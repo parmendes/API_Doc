@@ -1,0 +1,28 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: my-backstage-api
+  description: Wildcard - A REST API with Swashbuckle and NSwag.
+  tags:
+    - rest
+    - csharp
+spec:
+  type: openapi
+  lifecycle: production
+  owner: guest
+  definition: 'http://127.0.0.1:5036/swagger/v1/swagger.json'
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: my-backstage-api-v2
+  description: Wildcard - A REST API with Swashbuckle and NSwag (v2).
+  tags:
+    - rest
+    - csharp
+spec:
+  type: openapi
+  lifecycle: development
+  owner: guest
+  definition: 'http://127.0.0.1:5036/swagger/v2/swagger.json'

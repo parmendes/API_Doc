@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: my-backstage-api-charlie
+  description: A REST API called Charlie.
+spec:
+  type: openapi
+  lifecycle: development
+  owner: guest
+  definition: 'http://127.0.0.1:5036/swagger/v1/swagger.json'

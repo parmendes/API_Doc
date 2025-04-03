@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: my-backstage-api2
+  description: 2# CATALOG V2 - A REST API with Swashbuckle and NSwag.
+  tags:
+    - rest
+    - csharp
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: openapi
+  lifecycle: development
+  owner: guest
+  definition: './apis/WeatherForecastAPI.json' # Path to the OpenAPI definition file
