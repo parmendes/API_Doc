@@ -11,5 +11,5 @@ metadata:
 spec:
   type: openapi
   lifecycle: development
-  owner: guest
+  owner: user:guest
   definition: './apis/WeatherForecastAPI.json' # Path to the OpenAPI definition file
