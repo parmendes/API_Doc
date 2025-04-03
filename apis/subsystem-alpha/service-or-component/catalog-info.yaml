@@ -9,7 +9,7 @@ metadata:
 spec:
   type: openapi
   lifecycle: production
-  owner: guest
+  owner: user:guest
   definition: 'http://127.0.0.1:5036/swagger/v1/swagger.json'
 
 ---
@@ -24,5 +24,5 @@ metadata:
 spec:
   type: openapi
   lifecycle: development
-  owner: guest
+  owner: user:guest
   definition: 'http://127.0.0.1:5036/swagger/v2/swagger.json'
