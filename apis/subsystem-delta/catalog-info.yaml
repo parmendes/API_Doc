@@ -8,7 +8,7 @@ metadata:
 spec:
   type: service
   lifecycle: development
-  owner: user:guest
+  owner: guest
   system: digital-twin
   providesApis:
     - binary-api
@@ -31,7 +31,7 @@ metadata:
 spec:
   type: link 
   lifecycle: development
-  owner: user:guest
+  owner: guest
   system: digital-twin
   unsafeUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
   embed: true
