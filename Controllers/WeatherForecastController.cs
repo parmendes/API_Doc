@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc;
 
 namespace MyBackstageAPI.Controllers;
 
-// This attribute marks this class as an API controller, which means it will handle HTTP requests.
+// This attribute marks this class as an API controller, meaning it will handle HTTP requests.
 // The ApiVersion attributes specify that this controller supports API versions 1.0 and 2.0.
 // The Route attribute defines the base URL for this controller, including the version placeholder.
 [ApiController]
