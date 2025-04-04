@@ -6,22 +6,26 @@
     <members>
         <member name="M:MyBackstageAPI.Controllers.WeatherForecastController.Get">
             <summary>
-            Gets the weather forecast (available in versions 1 and 2).
+            Handles GET requests to retrieve a list of weather forecasts.
+            This method is available in both API versions 1.0 and 2.0.
             </summary>
+            <returns>A list of weather forecasts.</returns>
         </member>
         <member name="M:MyBackstageAPI.Controllers.WeatherForecastController.GetSummaryList">
             <summary>
-            Exclusive method for version 2: returns the list of weather summaries.
+            Handles GET requests to retrieve the list of weather summaries.
+            This method is only available in API version 2.0.
             </summary>
+            <returns>A list of weather summaries.</returns>
         </member>
         <member name="M:MyBackstageAPI.Controllers.WeatherForecastController.Post(MyBackstageAPI.WeatherForecast)">
             <summary>
-            Adds a new weather forecast.
+            Handles POST requests to add a new weather forecast.
             </summary>
             <param name="forecast">The weather forecast to add.</param>
-            <response code="201">Returns the newly created weather forecast.</response>
+            <returns>The newly created weather forecast.</returns>
             <remarks>
-            Sample request:
+            Example of a request body:
             
             ```json
             POST /WeatherForecast
@@ -31,18 +35,23 @@
                 "TemperatureF": 74,
                 "Summary": "Sunny"
             }
-            ``` 
+            ```
             </remarks>
         </member>
         <member name="M:MyBackstageAPI.Controllers.WeatherForecastController.Put(System.DateTime,MyBackstageAPI.WeatherForecast)">
             <summary>
-            Updates an existing weather forecast.
+            Handles PUT requests to update an existing weather forecast.
             </summary>
+            <param name="date">The date of the forecast to update.</param>
+            <param name="forecast">The updated weather forecast data.</param>
+            <returns>The updated weather forecast or a 404 Not Found status if the forecast doesn't exist.</returns>
         </member>
         <member name="M:MyBackstageAPI.Controllers.WeatherForecastController.Delete(System.DateTime)">
             <summary>
-            Removes a weather forecast.
+            Handles DELETE requests to remove a weather forecast.
             </summary>
+            <param name="date">The date of the forecast to delete.</param>
+            <returns>A 204 No Content status.</returns>
         </member>
         <member name="P:MyBackstageAPI.WeatherForecast.Date">
             <summary>

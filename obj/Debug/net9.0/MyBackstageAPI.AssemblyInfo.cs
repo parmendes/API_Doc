@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyBackstageAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+94e8f4da187ad3320895061502dc2c7085554ccb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc77b7e975dcf05ab659c4bdd51d85f1da998a78")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyBackstageAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyBackstageAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

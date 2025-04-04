@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\API_Doc\\MyBackstageAPI.csproj": {}
+    "C:\\CriticalSoftware\\Workspace\\API_Doc\\MyBackstageAPI.csproj": {}
   },
   "projects": {
-    "C:\\dev\\API_Doc\\MyBackstageAPI.csproj": {
+    "C:\\CriticalSoftware\\Workspace\\API_Doc\\MyBackstageAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\API_Doc\\MyBackstageAPI.csproj",
+        "projectUniqueName": "C:\\CriticalSoftware\\Workspace\\API_Doc\\MyBackstageAPI.csproj",
         "projectName": "MyBackstageAPI",
-        "projectPath": "C:\\dev\\API_Doc\\MyBackstageAPI.csproj",
-        "packagesPath": "C:\\Users\\pamendes\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\API_Doc\\obj\\",
+        "projectPath": "C:\\CriticalSoftware\\Workspace\\API_Doc\\MyBackstageAPI.csproj",
+        "packagesPath": "C:\\Users\\dsvieira\\.nuget\\packages\\",
+        "outputPath": "C:\\CriticalSoftware\\Workspace\\API_Doc\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\pamendes\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\dsvieira\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
