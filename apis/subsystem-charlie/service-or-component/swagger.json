@@ -1,20 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Charlie API",
-    "version": "1.0.0",
-    "description": "A REST API called Charlie."
+    "title": "Test API",
+    "version": "1.0.0"
   },
-  "paths": {
-    "/example": {
-      "get": {
-        "summary": "Example endpoint",
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          }
-        }
-      }
-    }
-  }
+  "paths": {}
 }
