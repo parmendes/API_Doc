@@ -9,4 +9,5 @@ spec:
   type: openapi
   lifecycle: development
   owner: user:guest
-  definition: ./swagger.json
+  definition: 
+    $text: ./swagger.json
