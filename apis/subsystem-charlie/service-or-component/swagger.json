@@ -2,7 +2,7 @@
   "openapi": "3.0.4",
   "info": {
     "title": "My Backstage API 1.0",
-    "description": "This is the documentation for API version 1.0.",
+    "description": "This is the documentation (local .json) for API version 1.0.",
     "contact": {
       "name": "Support Team",
       "url": "https://example.com/support",
