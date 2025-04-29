@@ -1,7 +1,7 @@
 openapi: 3.0.4
 info:
   title: MinimalRestAPI
-  description: API for managing weather forecasts.
+  description: "### MinimalRestAPI\n\nAn internal API for managing weather forecasts. This API is not intended for external use and is rate-limited to 100 requests per minute for free users.\n\n#### Features:\n- Retrieve weather forecasts for the next 5 days.\n- Create new weather forecasts.\n- Update existing weather forecasts.\n- Delete weather forecasts.\n\n#### Notes:\n- Authentication is required for most operations.\n- Ensure proper usage of the API within the defined rate limits."
   version: v1
 paths:
   /weatherforecast:
@@ -13,7 +13,7 @@ paths:
       operationId: GetWeatherForecast
       responses:
         '200':
-          description: OK
+          description: A list of weather forecasts.
           content:
             application/json:
               schema:
@@ -21,17 +21,41 @@ paths:
                 items:
                   $ref: '#/components/schemas/WeatherForecast'
         '400':
-          description: Bad Request
+          description: Bad request. The input parameters are invalid.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetails'
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
         '500':
-          description: Internal Server Error
+          description: Internal server error. Something went wrong on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetails'
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
     post:
       tags:
         - MinimalRestAPI
@@ -50,29 +74,65 @@ paths:
               summary: Sunny
       responses:
         '201':
-          description: Created
+          description: Weather forecast created successfully.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/WeatherForecast'
         '400':
-          description: Bad Request
+          description: Bad request. The input parameters are invalid.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetails'
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
         '401':
-          description: Unauthorized
+          description: Unauthorized. The user is not authenticated.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetails'
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
         '500':
-          description: Internal Server Error
+          description: Internal server error. Something went wrong on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetails'
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
       security:
         - Bearer: [ ]
         - Bearer: [ ]
@@ -96,12 +156,6 @@ paths:
       parameters:
         - name: date
           in: path
-          required: true
-          schema:
-            type: string
-            format: date
-        - name: date
-          in: path
           description: The date of the weather forecast to update.
           required: true
           schema:
@@ -120,35 +174,83 @@ paths:
         required: true
       responses:
         '200':
-          description: OK
+          description: Weather forecast updated successfully.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/WeatherForecast'
         '400':
-          description: Bad Request
+          description: Bad request. The input parameters are invalid.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetails'
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
         '401':
-          description: Unauthorized
+          description: Unauthorized. The user is not authenticated.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetails'
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
         '404':
-          description: Not Found
+          description: Not found. The weather forecast for the specified date was not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetails'
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
         '500':
-          description: Internal Server Error
+          description: Internal server error. Something went wrong on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetails'
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
       security:
         - Bearer: [ ]
         - Bearer: [ ]
@@ -172,68 +274,86 @@ paths:
           schema:
             type: string
             format: date
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WeatherForecast'
-            example:
-              date: '2025-04-24'
-              temperatureC: 30
-              summary: Partly Cloudy
-        required: true
       responses:
         '204':
-          description: No Content
+          description: No content. The weather forecast was deleted successfully.
         '400':
-          description: Bad Request
+          description: Bad request. The input parameters are invalid.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetails'
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
         '401':
-          description: Unauthorized
+          description: Unauthorized. The user is not authenticated.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetails'
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
         '404':
-          description: Not Found
+          description: Not found. The weather forecast for the specified date was not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetails'
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
         '500':
-          description: Internal Server Error
+          description: Internal server error. Something went wrong on the server.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetails'
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
       security:
         - Bearer: [ ]
         - Bearer: [ ]
 components:
   schemas:
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-      additionalProperties: { }
     WeatherForecast:
       type: object
       properties:
