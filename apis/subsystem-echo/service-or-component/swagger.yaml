@@ -136,6 +136,8 @@ paths:
       security:
         - Bearer: [ ]
         - Bearer: [ ]
+        - Bearer: [ ]
+        - Bearer: [ ]
   /weatherforecast/legacy:
     get:
       tags:
@@ -156,9 +158,10 @@ paths:
       parameters:
         - name: date
           in: path
-          description: The date of the weather forecast to update.
+          description: 'The date of the weather forecast to update. Format: yyyy-MM-dd'
           required: true
           schema:
+            pattern: '^\d{4}-\d{2}-\d{2}$'
             type: string
             format: date
       requestBody:
@@ -254,6 +257,8 @@ paths:
       security:
         - Bearer: [ ]
         - Bearer: [ ]
+        - Bearer: [ ]
+        - Bearer: [ ]
     delete:
       tags:
         - MinimalRestAPI
@@ -269,7 +274,7 @@ paths:
             format: date
         - name: date
           in: path
-          description: The date of the weather forecast to delete.
+          description: 'The date of the weather forecast to delete. Format: yyyy-MM-dd'
           required: true
           schema:
             type: string
@@ -350,6 +355,8 @@ paths:
                   instance:
                     type: string
       security:
+        - Bearer: [ ]
+        - Bearer: [ ]
         - Bearer: [ ]
         - Bearer: [ ]
 components:
