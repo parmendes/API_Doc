@@ -1,0 +1,179 @@
+openapi: 3.0.4
+info:
+  title: My API
+  description: Example API using local IdentityServer for authentication
+  version: v1
+paths:
+  /weather/public:
+    get:
+      tags:
+        - WeatherForecast
+      summary: Get a public weather forecast.
+      description: This endpoint is accessible without authentication.
+      responses:
+        '200':
+          description: Returns the list of weather forecasts.
+  /weather/private:
+    get:
+      tags:
+        - WeatherForecast
+      summary: Get a private weather forecast.
+      description: This endpoint is protected and requires a valid token with the "api1" scope.
+      responses:
+        '200':
+          description: Returns the list of weather forecasts and user details.
+        '401':
+          description: Unauthorized if the token is missing or invalid.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /weather/deprecated:
+    get:
+      tags:
+        - WeatherForecast
+      summary: '[Deprecated] Get a weather forecast (old version).'
+      description: This endpoint is deprecated. Please use `/weather/public` instead.
+      responses:
+        '410':
+          description: Gone - This endpoint is deprecated.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      deprecated: true
+  /weather/custom:
+    post:
+      tags:
+        - WeatherForecast
+      summary: Generate a custom weather forecast.
+      description: This endpoint allows you to generate a custom weather forecast by providing a summary.
+      requestBody:
+        description: The request body containing the custom summary.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomForecastRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CustomForecastRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CustomForecastRequest'
+      responses:
+        '200':
+          description: Returns the generated weather forecast.
+        '400':
+          description: Bad request if the input is invalid.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/weather/{id}/{date}':
+    delete:
+      tags:
+        - WeatherForecast
+      summary: Delete a weather forecast by ID and date.
+      description: "This endpoint deletes a weather forecast based on the provided ID and date.\r\nThe date must be in the format `yyyy-MM-dd`.\r\nExample: `/weather/1/2025-04-30`."
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the weather forecast to delete (must be an integer).
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: date
+          in: path
+          description: 'The date of the weather forecast to delete (format: yyyy-MM-dd).'
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '204':
+          description: No content - The weather forecast was successfully deleted.
+        '400':
+          description: Bad request - The date format is invalid.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not found - The weather forecast with the specified ID and date does not exist.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+components:
+  schemas:
+    CustomForecastRequest:
+      type: object
+      properties:
+        summary:
+          type: string
+          description: The custom summary for the weather forecast.
+          nullable: true
+      additionalProperties: false
+      description: Request model for generating a custom weather forecast.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: { }
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: http://localhost:5001/connect/token
+          scopes:
+            api1: Access to My API
+security:
+  - oauth2:
+      - api1
