@@ -268,15 +268,10 @@ paths:
       parameters:
         - name: date
           in: path
-          required: true
-          schema:
-            type: string
-            format: date
-        - name: date
-          in: path
           description: 'The date of the weather forecast to delete. Format: yyyy-MM-dd'
           required: true
           schema:
+            pattern: '^\d{4}-\d{2}-\d{2}$'
             type: string
             format: date
       responses:
