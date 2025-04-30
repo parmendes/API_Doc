@@ -1,8 +1,8 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: MinimalRestAPI
-  description: Minimal Rest API Project.
+  name: Controller-Base-Daniel-RestAPI
+  description: Controller-Base Rest API Project.
   #annotations:
     #backstage.io/techdocs-ref: dir:.
 spec:
