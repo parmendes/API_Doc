@@ -11,3 +11,18 @@ spec:
   owner: user:guest
   definition: 
     $text: ./swagger.yaml
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: MinimalRestAPI_Pedrov2
+  description: Minimal Rest API Project - Pedro.
+  #annotations:
+    #backstage.io/techdocs-ref: dir:.
+spec:
+  type: openapi
+  lifecycle: development
+  owner: user:guest
+  definition: 
+    $text: ./swagger_v2.yaml
