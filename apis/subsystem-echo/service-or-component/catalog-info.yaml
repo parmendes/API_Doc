@@ -17,7 +17,7 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: MinimalRestAPI_Pedrov2
-  description: Minimal Rest API Project - Pedro.
+  description: Minimal Rest API Project v 2.0- Pedro.
   #annotations:
     #backstage.io/techdocs-ref: dir:.
 spec:
