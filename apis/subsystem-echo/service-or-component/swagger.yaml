@@ -11,6 +11,21 @@ paths:
       summary: Retrieves the weather forecast for the next 5 days.
       description: 'This endpoint provides a list of weather forecasts for the next 5 days, including temperature and summary.'
       operationId: GetWeatherForecast
+      parameters:
+        - name: minTemperature
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            default: -20
+        - name: maxTemperature
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            default: 55
       responses:
         '200':
           description: A list of weather forecasts.
@@ -66,12 +81,8 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/WeatherForecast'
-            example:
-              date: '2025-04-24'
-              temperatureC: 25
-              summary: Sunny
+              $ref: '#/components/schemas/WeatherForecast'
+        required: true
       responses:
         '201':
           description: Weather forecast created successfully.
@@ -135,9 +146,6 @@ paths:
                     type: string
       security:
         - Bearer: [ ]
-        - Bearer: [ ]
-        - Bearer: [ ]
-        - Bearer: [ ]
   /weatherforecast/legacy:
     get:
       tags:
@@ -156,7 +164,7 @@ paths:
       description: This endpoint allows authenticated users to update an existing weather forecast.
       operationId: UpdateWeatherForecast
       parameters:
-        - name: date
+        - name: date (Example - non-existent)
           in: path
           description: 'The date of the weather forecast to update. Format: yyyy-MM-dd'
           required: true
@@ -168,8 +176,7 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/WeatherForecast'
+              $ref: '#/components/schemas/WeatherForecast'
             example:
               date: '2025-04-24'
               temperatureC: 30
@@ -255,9 +262,6 @@ paths:
                   instance:
                     type: string
       security:
-        - Bearer: [ ]
-        - Bearer: [ ]
-        - Bearer: [ ]
         - Bearer: [ ]
     delete:
       tags:
@@ -351,27 +355,30 @@ paths:
                     type: string
       security:
         - Bearer: [ ]
-        - Bearer: [ ]
-        - Bearer: [ ]
-        - Bearer: [ ]
 components:
   schemas:
     WeatherForecast:
       type: object
       properties:
-        date:
-          type: string
-          format: date
-        temperatureC:
-          type: integer
-          format: int32
-        summary:
-          type: string
-          nullable: true
         temperatureF:
           type: integer
           format: int32
           readOnly: true
+        date:
+          type: string
+          format: date
+        temperatureC:
+          maximum: 50
+          minimum: -50
+          type: integer
+          format: int32
+          default: 15
+        summary:
+          maxLength: 100
+          minLength: 0
+          type: string
+          default: Default summary
+          nullable: true
       additionalProperties: false
   securitySchemes:
     oauth2:
