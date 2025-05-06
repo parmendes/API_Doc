@@ -17,6 +17,10 @@ paths:
       description: Returns a list of weather forecasts with temperatures and summaries.
       operationId: GetWeatherForecast
       parameters:
+        - name: X-My-Custom-Header
+          in: header
+          schema:
+            type: string
         - name: minTemperature
           in: query
           required: true
@@ -242,7 +246,6 @@ paths:
         - Bearer: [ ]
         - Bearer: [ ]
         - Bearer: [ ]
-        - Bearer: [ ]
   /api/v2/weatherforecast/weatherforecast/user-endpoint:
     post:
       tags:
@@ -336,7 +339,6 @@ paths:
                   instance:
                     type: string
       security:
-        - Bearer: [ ]
         - Bearer: [ ]
         - Bearer: [ ]
         - Bearer: [ ]
