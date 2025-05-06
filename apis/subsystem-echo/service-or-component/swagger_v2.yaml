@@ -1,15 +1,20 @@
 openapi: 3.0.4
 info:
   title: MinimalRestAPI
-  description: "### MinimalRestAPI\n\nAn internal API for managing weather forecasts. This API is not intended for external use and is rate-limited to 100 requests per minute for free users.\n\n#### Features:\n- Retrieve weather forecasts for the next 5 days.\n- Create new weather forecasts.\n- Update existing weather forecasts.\n- Delete weather forecasts.\n\n#### Notes:\n- Authentication is required for most operations.\n- Ensure proper usage of the API within the defined rate limits."
-  version: v2.0
+  description: "### MinimalRestAPI\n\nAn internal API for managing weather forecasts. This API is not intended for external use and is rate-limited to 100 requests per minute for free users.\n\n#### Notes:\n- Authentication is required for most operations.\n- Ensure proper usage of the API within the defined rate limits."
+  contact:
+    name: MinimalRestAPI
+    email: ''
+  license:
+    name: Use under MIT
+  version: '2.0'
 paths:
-  /weatherforecast:
+  /api/v2/weatherforecast/weatherforecast:
     get:
       tags:
-        - MinimalRestAPI
+        - WeatherForecast
       summary: Retrieves the weather forecast for the next 5 days.
-      description: 'This endpoint provides a list of weather forecasts for the next 5 days, including temperature and summary.'
+      description: Returns a list of weather forecasts with temperatures and summaries.
       operationId: GetWeatherForecast
       parameters:
         - name: minTemperature
@@ -28,7 +33,7 @@ paths:
             default: 55
       responses:
         '200':
-          description: A list of weather forecasts.
+          description: Successful operation.
           content:
             application/json:
               schema:
@@ -36,7 +41,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/WeatherForecast'
         '400':
-          description: Bad request. The input parameters are invalid.
+          description: Invalid temperature range.
           content:
             application/json:
               schema:
@@ -53,8 +58,8 @@ paths:
                     type: string
                   instance:
                     type: string
-        '500':
-          description: Internal server error. Something went wrong on the server.
+        '429':
+          description: Too Many Requests
           content:
             application/json:
               schema:
@@ -71,22 +76,6 @@ paths:
                     type: string
                   instance:
                     type: string
-  /v0.9/weatherforecast:
-    get:
-      tags:
-        - MinimalRestAPI
-      summary: Legacy weather forecast (v0.9)
-      description: This is a legacy version of the weather forecast endpoint (before v1). Returns 3 days only.
-      operationId: GetWeatherForecastV0_9
-      responses:
-        '200':
-          description: Weather forecast (legacy format).
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/WeatherForecast'
         '500':
           description: Internal server error.
           content:
@@ -105,23 +94,64 @@ paths:
                     type: string
                   instance:
                     type: string
-      deprecated: true
-  /weatherforecast/legacy:
+  /api/v2/weatherforecast/weatherforecast3Days:
     get:
       tags:
-        - MinimalRestAPI
-      description: This endpoint is deprecated. Use /weatherforecast instead.
-      operationId: GetLegacyWeatherForecast
+        - WeatherForecast
+      summary: Retrieves a short-term 3-day weather forecast.
+      description: Newer version with limited 3-day forecast data.
+      operationId: GetWeatherForecast3Days
       responses:
         '200':
-          description: OK
-      deprecated: true
-  /weatherforecast/admin-endpoint:
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WeatherForecast'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+  /api/v2/weatherforecast/weatherforecast/admin-endpoint:
     post:
       tags:
-        - MinimalRestAPI
-      summary: Creates a new weather forecast.
-      description: This endpoint allows authenticated users to create a new weather forecast.
+        - WeatherForecast
+      summary: Creates a new weather forecast (Admin only).
+      description: Only users with Admin privileges can access this endpoint.
       operationId: CreateWeatherForecastADMIN
       requestBody:
         content:
@@ -131,13 +161,13 @@ paths:
         required: true
       responses:
         '201':
-          description: Weather forecast created successfully.
+          description: Created successfully.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/WeatherForecast'
         '400':
-          description: Bad request. The input parameters are invalid.
+          description: Invalid input.
           content:
             application/json:
               schema:
@@ -155,7 +185,25 @@ paths:
                   instance:
                     type: string
         '401':
-          description: Unauthorized. The user is not authenticated.
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+        '429':
+          description: Too Many Requests
           content:
             application/json:
               schema:
@@ -173,7 +221,7 @@ paths:
                   instance:
                     type: string
         '500':
-          description: Internal server error. Something went wrong on the server.
+          description: Server error.
           content:
             application/json:
               schema:
@@ -194,12 +242,14 @@ paths:
         - Bearer: [ ]
         - Bearer: [ ]
         - Bearer: [ ]
-  /weatherforecast/user-endpoint:
+        - Bearer: [ ]
+        - Bearer: [ ]
+  /api/v2/weatherforecast/weatherforecast/user-endpoint:
     post:
       tags:
-        - MinimalRestAPI
+        - WeatherForecast
       summary: Creates a new weather forecast.
-      description: This endpoint allows authenticated users to create a new weather forecast.
+      description: Authenticated users can create forecasts.
       operationId: CreateWeatherForecast
       requestBody:
         content:
@@ -209,13 +259,13 @@ paths:
         required: true
       responses:
         '201':
-          description: Weather forecast created successfully.
+          description: Created.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/WeatherForecast'
         '400':
-          description: Bad request. The input parameters are invalid.
+          description: Invalid input.
           content:
             application/json:
               schema:
@@ -233,7 +283,25 @@ paths:
                   instance:
                     type: string
         '401':
-          description: Unauthorized. The user is not authenticated.
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+        '429':
+          description: Too Many Requests
           content:
             application/json:
               schema:
@@ -251,7 +319,7 @@ paths:
                   instance:
                     type: string
         '500':
-          description: Internal server error. Something went wrong on the server.
+          description: Server error.
           content:
             application/json:
               schema:
@@ -272,17 +340,19 @@ paths:
         - Bearer: [ ]
         - Bearer: [ ]
         - Bearer: [ ]
-  '/weatherforecast/{date}':
+        - Bearer: [ ]
+        - Bearer: [ ]
+  '/api/v2/weatherforecast/weatherforecast/{date}':
     put:
       tags:
-        - MinimalRestAPI
-      summary: Updates an existing weather forecast.
-      description: This endpoint allows authenticated users to update an existing weather forecast.
+        - WeatherForecast
+      summary: Updates an existing forecast.
+      description: Allows updates to a forecast by date.
       operationId: UpdateWeatherForecast
       parameters:
-        - name: date (Example - non-existent)
+        - name: date
           in: path
-          description: 'The date of the weather forecast to update. Format: yyyy-MM-dd'
+          description: 'Date of the forecast. Format: yyyy-MM-dd.'
           required: true
           schema:
             pattern: '^\d{4}-\d{2}-\d{2}$'
@@ -300,13 +370,13 @@ paths:
         required: true
       responses:
         '200':
-          description: Weather forecast updated successfully.
+          description: Updated.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/WeatherForecast'
         '400':
-          description: Bad request. The input parameters are invalid.
+          description: Bad request.
           content:
             application/json:
               schema:
@@ -324,7 +394,7 @@ paths:
                   instance:
                     type: string
         '401':
-          description: Unauthorized. The user is not authenticated.
+          description: Unauthorized.
           content:
             application/json:
               schema:
@@ -342,7 +412,25 @@ paths:
                   instance:
                     type: string
         '404':
-          description: Not found. The weather forecast for the specified date was not found.
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+        '429':
+          description: API calls quota exceeded!
           content:
             application/json:
               schema:
@@ -360,7 +448,7 @@ paths:
                   instance:
                     type: string
         '500':
-          description: Internal server error. Something went wrong on the server.
+          description: Internal server error.
           content:
             application/json:
               schema:
@@ -383,14 +471,14 @@ paths:
         - Bearer: [ ]
     delete:
       tags:
-        - MinimalRestAPI
-      summary: Deletes a weather forecast.
-      description: This endpoint allows authenticated users to delete a weather forecast by date.
+        - WeatherForecast
+      summary: Deletes a forecast.
+      description: Removes a forecast by date.
       operationId: DeleteWeatherForecast
       parameters:
         - name: date
           in: path
-          description: 'The date of the weather forecast to delete. Format: yyyy-MM-dd'
+          description: 'Date of forecast to delete. Format: yyyy-MM-dd.'
           required: true
           schema:
             pattern: '^\d{4}-\d{2}-\d{2}$'
@@ -398,9 +486,9 @@ paths:
             format: date
       responses:
         '204':
-          description: No content. The weather forecast was deleted successfully.
+          description: Deleted.
         '400':
-          description: Bad request. The input parameters are invalid.
+          description: Bad request.
           content:
             application/json:
               schema:
@@ -418,7 +506,7 @@ paths:
                   instance:
                     type: string
         '401':
-          description: Unauthorized. The user is not authenticated.
+          description: Unauthorized.
           content:
             application/json:
               schema:
@@ -436,7 +524,25 @@ paths:
                   instance:
                     type: string
         '404':
-          description: Not found. The weather forecast for the specified date was not found.
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    format: int32
+                  detail:
+                    type: string
+                  instance:
+                    type: string
+        '429':
+          description: API calls quota exceeded!
           content:
             application/json:
               schema:
@@ -454,7 +560,7 @@ paths:
                   instance:
                     type: string
         '500':
-          description: Internal server error. Something went wrong on the server.
+          description: Server error.
           content:
             application/json:
               schema:
@@ -480,11 +586,6 @@ components:
     WeatherForecast:
       type: object
       properties:
-        temperatureF:
-          type: integer
-          description: Gets the temperature in Fahrenheit.
-          format: int32
-          readOnly: true
         date:
           type: string
           description: Gets the date of the weather forecast.
@@ -496,15 +597,20 @@ components:
           description: Gets the temperature in Celsius.
           format: int32
           default: 15
+        temperatureF:
+          type: integer
+          description: Gets the temperature in Fahrenheit.
+          format: int32
+          readOnly: true
         summary:
           maxLength: 100
           minLength: 0
           type: string
-          description: Gets the summary of the weather forecast.
+          description: Gets the summary of the forecast.
           default: Default summary
           nullable: true
       additionalProperties: false
-      description: Represents a weather forecast.
+      description: Represents a weather forecast record.
   securitySchemes:
     oauth2:
       type: oauth2
