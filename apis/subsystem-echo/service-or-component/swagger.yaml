@@ -1,6 +1,6 @@
 openapi: 3.0.4
 info:
-  title: MinimalRestAPI
+  title: MinimalRestAPI_1.0
   description: "### MinimalRestAPI\n\nAn internal API for managing weather forecasts. This API is not intended for external use and is rate-limited to 100 requests per minute for free users.\n\n#### Notes:\n- Authentication is required for most operations.\n- Ensure proper usage of the API within the defined rate limits."
   contact:
     name: MinimalRestAPI
