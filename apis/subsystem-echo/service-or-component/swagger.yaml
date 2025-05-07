@@ -63,7 +63,7 @@ paths:
                   instance:
                     type: string
         '429':
-          description: Too Many Requests
+          description: API calls quota exceeded!
           content:
             application/json:
               schema:
@@ -203,6 +203,8 @@ paths:
                     type: string
       security:
         - Bearer: [ ]
+        - Bearer: [ ]
+        - Bearer: [ ]
   /api/v1/weatherforecast/weatherforecast/user-endpoint:
     post:
       tags:
@@ -296,6 +298,8 @@ paths:
                   instance:
                     type: string
       security:
+        - Bearer: [ ]
+        - Bearer: [ ]
         - Bearer: [ ]
 components:
   schemas:
