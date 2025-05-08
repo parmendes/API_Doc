@@ -4,7 +4,7 @@ metadata:
   name: minimal-rabbitmq-api
   description: “Async weather event API with rabbitmq”
 spec:
-  type: openapi
+  type: asyncapi
   lifecycle: development
   owner: user:guest
   definition: 
