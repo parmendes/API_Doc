@@ -1,1 +1,33 @@
+asyncapi: '2.6.0'
+info:
+  title: RabbitMQ AsyncAPI Example
+  version: '1.0.0'
+  description: AsyncAPI definition for RabbitMQ messaging.
 
+servers:
+  rabbitmq:
+    url: localhost:15672
+    protocol: amqp
+    description: RabbitMQ server.
+
+channels:
+  weather.signedup:
+    description: Channel for user signup events.
+    publish:
+      operationId: publishUserSignedUp
+      summary: Publish a user signup event.
+      message:
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            userId:
+              type: string
+              description: The ID of the user.
+            email:
+              type: string
+              description: The email of the user.
+            timestamp:
+              type: string
+              format: date-time
+              description: The time the event occurred.
