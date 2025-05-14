@@ -12,6 +12,7 @@ channels:
   queue1:
     description: 'Queue for queue1. Retry configuration: MaxRetries=3, RetryInterval=5000ms, DeadLetterExchange=dead_letter_exchange, DeadLetterQueue=dead_letter_queue.'
     publish:
+      operationId: publishToqueue1
       summary: Publish messages to the queue1 queue
       bindings:
         amqp:
@@ -19,26 +20,16 @@ channels:
           immediate: false
       message:
         payload:
-          type: string
-          description: Message payload for the queue1 queue
-          required:
-            - messageId
-            - timestamp
+          type: object
           properties:
             messageId:
               type: string
-              description: Unique identifier for the message
             timestamp:
               type: string
               format: date-time
-              description: Time the message was created
             data:
               type: object
-              description: Payload data
-        contentType: text/plain
-        examples:
-          - name: ExampleMessage
-            summary: An example message
+        contentType: application/json
     bindings:
       amqp:
         is: routingKey
@@ -50,6 +41,7 @@ channels:
   queue2:
     description: 'Queue for queue2. Retry configuration: MaxRetries=3, RetryInterval=5000ms, DeadLetterExchange=dead_letter_exchange, DeadLetterQueue=dead_letter_queue.'
     publish:
+      operationId: publishToqueue2
       summary: Publish messages to the queue2 queue
       bindings:
         amqp:
@@ -57,26 +49,16 @@ channels:
           immediate: false
       message:
         payload:
-          type: string
-          description: Message payload for the queue2 queue
-          required:
-            - messageId
-            - timestamp
+          type: object
           properties:
             messageId:
               type: string
-              description: Unique identifier for the message
             timestamp:
               type: string
               format: date-time
-              description: Time the message was created
             data:
               type: object
-              description: Payload data
-        contentType: text/plain
-        examples:
-          - name: ExampleMessage
-            summary: An example message
+        contentType: application/json
     bindings:
       amqp:
         is: routingKey
