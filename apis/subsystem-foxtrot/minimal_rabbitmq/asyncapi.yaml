@@ -1,33 +1,103 @@
-asyncapi: '2.6.0'
+asyncapi: 2.6.0
 info:
-  title: RabbitMQ AsyncAPI Example
-  version: '1.0.0'
-  description: AsyncAPI definition for RabbitMQ messaging.
-
+  title: Message Broker Example (RabbitMQ)
+  version: 1.0.0
+  description: This is an example of a message broker using RabbitMQ.
 servers:
   rabbitmq:
-    url: localhost:15672
+    url: amqp://localhost:5672
     protocol: amqp
-    description: RabbitMQ server.
-
+    description: RabbitMQ server
 channels:
-  weather.signedup:
-    description: Channel for user signup events.
+  queue1:
+    description: 'Queue for queue1. Retry configuration: MaxRetries=3, RetryInterval=5000ms, DeadLetterExchange=dead_letter_exchange, DeadLetterQueue=dead_letter_queue.'
     publish:
-      operationId: publishUserSignedUp
-      summary: Publish a user signup event.
+      summary: Publish messages to the queue1 queue
+      bindings:
+        amqp:
+          mandatory: false
+          immediate: false
       message:
-        contentType: application/json
         payload:
-          type: object
+          type: string
+          description: Message payload for the queue1 queue
+          required:
+            - messageId
+            - timestamp
           properties:
-            userId:
+            messageId:
               type: string
-              description: The ID of the user.
-            email:
-              type: string
-              description: The email of the user.
+              description: Unique identifier for the message
             timestamp:
               type: string
               format: date-time
-              description: The time the event occurred.
+              description: Time the message was created
+            data:
+              type: object
+              description: Payload data
+        contentType: text/plain
+        examples:
+          - name: ExampleMessage
+            summary: An example message
+    bindings:
+      amqp:
+        is: routingKey
+        exchange:
+          name: exchange1
+          type: direct
+          durable: true
+          autoDelete: false
+  queue2:
+    description: 'Queue for queue2. Retry configuration: MaxRetries=3, RetryInterval=5000ms, DeadLetterExchange=dead_letter_exchange, DeadLetterQueue=dead_letter_queue.'
+    publish:
+      summary: Publish messages to the queue2 queue
+      bindings:
+        amqp:
+          mandatory: false
+          immediate: false
+      message:
+        payload:
+          type: string
+          description: Message payload for the queue2 queue
+          required:
+            - messageId
+            - timestamp
+          properties:
+            messageId:
+              type: string
+              description: Unique identifier for the message
+            timestamp:
+              type: string
+              format: date-time
+              description: Time the message was created
+            data:
+              type: object
+              description: Payload data
+        contentType: text/plain
+        examples:
+          - name: ExampleMessage
+            summary: An example message
+    bindings:
+      amqp:
+        is: routingKey
+        exchange:
+          name: exchange2
+          type: direct
+          durable: true
+          autoDelete: false
+components:
+  schemas:
+    MessagePayload:
+      type: object
+      properties:
+        messageId:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        data:
+          type: object
+  securitySchemes:
+    userPassword:
+      type: userPassword
+      description: RabbitMQ username and password authentication
