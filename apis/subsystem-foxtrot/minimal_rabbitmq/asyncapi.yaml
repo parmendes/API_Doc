@@ -19,12 +19,19 @@ channels:
           mandatory: false
           immediate: false
       message:
+        headers:
+          type: object
+          properties:
+            correlationId:
+              type: string
+            description:
+              type: string
         payload:
           type: object
           description: Message payload for the queue1 queue
           required:
-          - messageId
-          - timestamp
+            - messageId
+            - timestamp
           properties:
             messageId:
               type: string
@@ -36,13 +43,18 @@ channels:
             data:
               type: object
               description: Payload data
+        correlationId:
+          description: Correlation ID for tracking
+          location: $message.header#/correlationId
         contentType: application/json
+        name: Message
+        title: Message
         examples:
-          ExampleMessage:
+          - name: ExampleMessage
             summary: A minimal valid payload
             payload:
               messageId: '12345'
-              timestamp: '2025-05-14T15:38:59.439+00:00'
+              timestamp: '2025-05-14T16:11:25.153+00:00'
               data:
                 key: value
     bindings:
@@ -63,12 +75,19 @@ channels:
           mandatory: false
           immediate: false
       message:
+        headers:
+          type: object
+          properties:
+            correlationId:
+              type: string
+            description:
+              type: string
         payload:
           type: object
           description: Message payload for the queue2 queue
           required:
-          - messageId
-          - timestamp
+            - messageId
+            - timestamp
           properties:
             messageId:
               type: string
@@ -80,13 +99,18 @@ channels:
             data:
               type: object
               description: Payload data
+        correlationId:
+          description: Correlation ID for tracking
+          location: $message.header#/correlationId
         contentType: application/json
+        name: Message
+        title: Message
         examples:
-          ExampleMessage:
+          - name: ExampleMessage
             summary: A minimal valid payload
             payload:
               messageId: '12345'
-              timestamp: '2025-05-14T15:38:59.454+00:00'
+              timestamp: '2025-05-14T16:11:25.168+00:00'
               data:
                 key: value
     bindings:
@@ -113,4 +137,3 @@ components:
     userPassword:
       type: userPassword
       description: RabbitMQ username and password authentication
-...
