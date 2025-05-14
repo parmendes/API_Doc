@@ -23,8 +23,8 @@ channels:
           type: object
           description: Message payload for the queue1 queue
           required:
-            - messageId
-            - timestamp
+          - messageId
+          - timestamp
           properties:
             messageId:
               type: string
@@ -38,11 +38,11 @@ channels:
               description: Payload data
         contentType: application/json
         examples:
-          - name: ExampleMessage
+          ExampleMessage:
             summary: A minimal valid payload
             payload:
               messageId: '12345'
-              timestamp: '2025-05-14T15:24:58.261+00:00'
+              timestamp: '2025-05-14T15:38:59.439+00:00'
               data:
                 key: value
     bindings:
@@ -67,8 +67,8 @@ channels:
           type: object
           description: Message payload for the queue2 queue
           required:
-            - messageId
-            - timestamp
+          - messageId
+          - timestamp
           properties:
             messageId:
               type: string
@@ -82,11 +82,11 @@ channels:
               description: Payload data
         contentType: application/json
         examples:
-          - name: ExampleMessage
+          ExampleMessage:
             summary: A minimal valid payload
             payload:
               messageId: '12345'
-              timestamp: '2025-05-14T15:24:58.277+00:00'
+              timestamp: '2025-05-14T15:38:59.454+00:00'
               data:
                 key: value
     bindings:
@@ -113,3 +113,4 @@ components:
     userPassword:
       type: userPassword
       description: RabbitMQ username and password authentication
+...
