@@ -38,10 +38,11 @@ channels:
               description: Payload data
         contentType: application/json
         examples:
+          - name: ExampleMessage
             summary: A minimal valid payload
             payload:
               messageId: '12345'
-              timestamp: '2025-05-14T15:22:37.820+00:00'
+              timestamp: '2025-05-14T15:24:58.261+00:00'
               data:
                 key: value
     bindings:
@@ -81,10 +82,11 @@ channels:
               description: Payload data
         contentType: application/json
         examples:
+          - name: ExampleMessage
             summary: A minimal valid payload
             payload:
               messageId: '12345'
-              timestamp: '2025-05-14T15:22:37.838+00:00'
+              timestamp: '2025-05-14T15:24:58.277+00:00'
               data:
                 key: value
     bindings:
