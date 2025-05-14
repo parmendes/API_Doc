@@ -21,7 +21,7 @@ channels:
       message:
         payload:
           type: object
-          description: Message payload for the queue.
+          description: Message payload for the queue1 queue
           required:
             - messageId
             - timestamp
@@ -38,11 +38,10 @@ channels:
               description: Payload data
         contentType: application/json
         examples:
-          - name: ExampleMessage
             summary: A minimal valid payload
             payload:
               messageId: '12345'
-              timestamp: '2025-05-14T14:58:32.938+00:00'
+              timestamp: '2025-05-14T15:22:37.820+00:00'
               data:
                 key: value
     bindings:
@@ -65,7 +64,7 @@ channels:
       message:
         payload:
           type: object
-          description: Message payload for the queue.
+          description: Message payload for the queue2 queue
           required:
             - messageId
             - timestamp
@@ -82,11 +81,10 @@ channels:
               description: Payload data
         contentType: application/json
         examples:
-          - name: ExampleMessage
             summary: A minimal valid payload
             payload:
               messageId: '12345'
-              timestamp: '2025-05-14T14:58:32.955+00:00'
+              timestamp: '2025-05-14T15:22:37.838+00:00'
               data:
                 key: value
     bindings:
