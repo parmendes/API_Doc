@@ -20,16 +20,31 @@ channels:
           immediate: false
       message:
         payload:
-          type: object
+          type: string
+          description: Message payload for the queue1 queue
+          required:
+            - messageId
+            - timestamp
           properties:
             messageId:
               type: string
+              description: Unique identifier for the message
             timestamp:
               type: string
               format: date-time
+              description: Time the message was created
             data:
               type: object
+              description: Payload data
         contentType: application/json
+        examples:
+          - name: ExampleMessage
+            summary: A minimal valid payload
+            payload:
+              messageId: '12345'
+              timestamp: '2025-05-14T14:46:57.149+00:00'
+              data:
+                key: value
     bindings:
       amqp:
         is: routingKey
@@ -49,16 +64,31 @@ channels:
           immediate: false
       message:
         payload:
-          type: object
+          type: string
+          description: Message payload for the queue2 queue
+          required:
+            - messageId
+            - timestamp
           properties:
             messageId:
               type: string
+              description: Unique identifier for the message
             timestamp:
               type: string
               format: date-time
+              description: Time the message was created
             data:
               type: object
+              description: Payload data
         contentType: application/json
+        examples:
+          - name: ExampleMessage
+            summary: A minimal valid payload
+            payload:
+              messageId: '12345'
+              timestamp: '2025-05-14T14:46:57.166+00:00'
+              data:
+                key: value
     bindings:
       amqp:
         is: routingKey
