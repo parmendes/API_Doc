@@ -20,8 +20,8 @@ channels:
           immediate: false
       message:
         payload:
-          type: string
-          description: Message payload for the queue1 queue
+          type: object
+          description: Message payload for the queue.
           required:
             - messageId
             - timestamp
@@ -42,7 +42,7 @@ channels:
             summary: A minimal valid payload
             payload:
               messageId: '12345'
-              timestamp: '2025-05-14T14:46:57.149+00:00'
+              timestamp: '2025-05-14T14:58:32.938+00:00'
               data:
                 key: value
     bindings:
@@ -64,8 +64,8 @@ channels:
           immediate: false
       message:
         payload:
-          type: string
-          description: Message payload for the queue2 queue
+          type: object
+          description: Message payload for the queue.
           required:
             - messageId
             - timestamp
@@ -86,7 +86,7 @@ channels:
             summary: A minimal valid payload
             payload:
               messageId: '12345'
-              timestamp: '2025-05-14T14:46:57.166+00:00'
+              timestamp: '2025-05-14T14:58:32.955+00:00'
               data:
                 key: value
     bindings:
