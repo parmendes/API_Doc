@@ -1,139 +1,157 @@
-asyncapi: 2.6.0
+asyncapi: '2.6.0'
 info:
-  title: Message Broker Example (RabbitMQ)
+  title: Light Measurement API
   version: 1.0.0
-  description: This is an example of a message broker using RabbitMQ.
+  description: Unified API for light measurement events.
+  termsOfService: https://www.websitepolicies.com/blog/sample-terms-service-template
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-  rabbitmq:
+  mosquitto:
     url: amqp://localhost:5672
     protocol: amqp
-    description: RabbitMQ server
+    protocolVersion: latest
+    description: RabbitMQ server for light measurement events
 channels:
-  queue1:
-    description: 'Queue for queue1. Retry configuration: MaxRetries=3, RetryInterval=5000ms, DeadLetterExchange=dead_letter_exchange, DeadLetterQueue=dead_letter_queue.'
-    publish:
-      operationId: publishToqueue1
-      summary: Publish messages to the queue1 queue
-      bindings:
-        amqp:
-          mandatory: false
-          immediate: false
+  light.measured:
+    subscribe:
+      operationId: ConsumeLightMeasured
       message:
-        headers:
-          type: object
-          properties:
-            correlationId:
-              type: string
-            description:
-              type: string
         payload:
-          type: object
-          description: Message payload for the queue1 queue
-          required:
-            - messageId
-            - timestamp
-          properties:
-            messageId:
-              type: string
-              description: Unique identifier for the message
-            timestamp:
-              type: string
-              format: date-time
-              description: Time the message was created
-            data:
-              type: object
-              description: Payload data
-        correlationId:
-          description: Correlation ID for tracking
-          location: $message.header#/correlationId
-        contentType: application/json
-        name: Message
-        title: Message
+          Keywords:
+          - Type: Object
+          - Properties:
+              id:
+                Keywords:
+                - Type: String
+                - Value: &o0
+                    Key: uuid
+                - Value: Gets/sets the id of the measured light
+                BaseUri: https://json-everything.net/ebdf00393f
+              type:
+                Keywords:
+                - Values:
+                  - LED
+                  - HPS
+                - Value: Gets/sets the type of the measured light
+                BaseUri: https://json-everything.net/1cf989264b
+              lumens:
+                Keywords:
+                - Type: Integer
+                - Value: Gets/sets the specified light's lumens measurement
+                BaseUri: https://json-everything.net/f33bd6507a
+              sentAt:
+                Keywords:
+                - Type: String
+                - Value: &o1
+                    Key: date-time
+                - Value: Gets/sets the date and time at which the event has been created
+                BaseUri: https://json-everything.net/856841e611
+              metadata:
+                Keywords:
+                - Type: Object
+                - Schema:
+                    Keywords:
+                    - Type: String
+                    BaseUri: https://json-everything.net/ff6e747b4b
+                - Value: Gets/sets the event's metadata
+                BaseUri: https://json-everything.net/5b0373ade6
+          BaseUri: https://json-everything.net/fa50499e6b
+        name: LightMeasured
+        title: Light Measured
+        summary: A message used to measure light
+        description: A message used to measure light
+        tags:
+        - name: light
+          description: A tag for light-related messages
+        - name: measurement
+          description: A tag for measurement-related messages
         examples:
-          - name: ExampleMessage
-            summary: A minimal valid payload
-            payload:
-              messageId: '12345'
-              timestamp: '2025-05-14T16:11:25.153+00:00'
-              data:
-                key: value
-    bindings:
-      amqp:
-        is: routingKey
-        exchange:
-          name: exchange1
-          type: direct
-          durable: true
-          autoDelete: false
-  queue2:
-    description: 'Queue for queue2. Retry configuration: MaxRetries=3, RetryInterval=5000ms, DeadLetterExchange=dead_letter_exchange, DeadLetterQueue=dead_letter_queue.'
+          Minimal: {}
+          Extended:
+            id: 00000000-0000-0000-0000-000000000000
+            type: LED
+            lumens: 61
+            sentAt: 2025-05-21T09:45:43.2440705+01:00
+            metadata:
+              property1: string
+              property2: string
+              property3: string
+      summary: Consumes a light measured event from RabbitMQ.
+      description: Receives notifications about environmental lighting conditions for a particular streetlight.
     publish:
-      operationId: publishToqueue2
-      summary: Publish messages to the queue2 queue
-      bindings:
-        amqp:
-          mandatory: false
-          immediate: false
+      operationId: PublishLightMeasured
       message:
-        headers:
-          type: object
-          properties:
-            correlationId:
-              type: string
-            description:
-              type: string
         payload:
-          type: object
-          description: Message payload for the queue2 queue
-          required:
-            - messageId
-            - timestamp
-          properties:
-            messageId:
-              type: string
-              description: Unique identifier for the message
-            timestamp:
-              type: string
-              format: date-time
-              description: Time the message was created
-            data:
-              type: object
-              description: Payload data
-        correlationId:
-          description: Correlation ID for tracking
-          location: $message.header#/correlationId
-        contentType: application/json
-        name: Message
-        title: Message
+          Keywords:
+          - Type: Object
+          - Properties:
+              id:
+                Keywords:
+                - Type: String
+                - Value: *o0
+                - Value: Gets/sets the id of the measured light
+                BaseUri: https://json-everything.net/90b937f59b
+              type:
+                Keywords:
+                - Values:
+                  - LED
+                  - HPS
+                - Value: Gets/sets the type of the measured light
+                BaseUri: https://json-everything.net/633163c0f6
+              lumens:
+                Keywords:
+                - Type: Integer
+                - Value: Gets/sets the specified light's lumens measurement
+                BaseUri: https://json-everything.net/a24783060e
+              sentAt:
+                Keywords:
+                - Type: String
+                - Value: *o1
+                - Value: Gets/sets the date and time at which the event has been created
+                BaseUri: https://json-everything.net/20704a3d70
+              metadata:
+                Keywords:
+                - Type: Object
+                - Schema:
+                    Keywords:
+                    - Type: String
+                    BaseUri: https://json-everything.net/cd205d9468
+                - Value: Gets/sets the event's metadata
+                BaseUri: https://json-everything.net/5d28fc064b
+          BaseUri: https://json-everything.net/07add45f5c
+        name: LightMeasured
+        title: Light Measured
+        summary: A message used to measure light
+        description: A message used to measure light
+        tags:
+        - name: light
+          description: A tag for light-related messages
+        - name: measurement
+          description: A tag for measurement-related messages
         examples:
-          - name: ExampleMessage
-            summary: A minimal valid payload
-            payload:
-              messageId: '12345'
-              timestamp: '2025-05-14T16:11:25.168+00:00'
-              data:
-                key: value
-    bindings:
-      amqp:
-        is: routingKey
-        exchange:
-          name: exchange2
-          type: direct
-          durable: true
-          autoDelete: false
+          Minimal: {}
+          Extended:
+            id: 00000000-0000-0000-0000-000000000000
+            type: LED
+            lumens: 25
+            sentAt: 2025-05-21T09:45:43.2272720+01:00
+            metadata:
+              property1: string
+              property2: string
+              property3: string
+      summary: Publishes a light measured event to RabbitMQ.
+      description: Notifies remote consumers about environmental lighting conditions for a particular streetlight.
 components:
-  schemas:
-    MessagePayload:
-      type: object
-      properties:
-        messageId:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        data:
-          type: object
-  securitySchemes:
-    userPassword:
-      type: userPassword
-      description: RabbitMQ username and password authentication
+  channelBindings:
+    amqp:
+      amqp:
+        bindingVersion: latest
+  operationBindings:
+    amqp:
+      amqp:
+        cc:
+        - light.measured
+        deliveryMode: persistent
+        bindingVersion: latest
