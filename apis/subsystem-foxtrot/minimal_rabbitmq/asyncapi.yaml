@@ -1,7 +1,7 @@
-asyncapi: '3.0.0'
+asyncapi: '2.6.0'
 info:
   title: Light Measurement API
-  version: '1.0.0'
+  version: 1.0.0
   description: Unified API for light measurement events.
   termsOfService: https://www.websitepolicies.com/blog/sample-terms-service-template
   license:
@@ -9,137 +9,162 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
   mosquitto:
-    host: amqp://localhost:5672
+    url: amqp://localhost:5672
     protocol: amqp
+    protocolVersion: latest
     description: RabbitMQ server for light measurement events
-defaultContentType: application/json
+    security:
+      oauth2: {}
 channels:
   light.measured:
-    address: '#/channels/light.measured'
-    messages:
-      publishLightMeasuredRequest:
+    subscribe:
+      operationId: ConsumeLightMeasured
+      message:
         payload:
-          schemaFormat: application/vnd.aai.asyncapi+json;version=3.0.0
-          schema:
-            Keywords:
-            - Type: Object
-            - Properties:
-                id:
-                  Keywords:
-                  - Type: String
-                  - Value:
-                      Key: uuid
-                  - Value: Gets/sets the id of the measured light
-                  BaseUri: https://json-everything.net/d396dff32e
-                type:
-                  Keywords:
-                  - Values:
-                    - LED
-                    - HPS
-                  - Value: Gets/sets the type of the measured light
-                  BaseUri: https://json-everything.net/76f4a3fa9c
-                lumens:
-                  Keywords:
-                  - Type: Integer
-                  - Value: Gets/sets the specified light's lumens measurement
-                  BaseUri: https://json-everything.net/97f230e199
-                sentAt:
-                  Keywords:
-                  - Type: String
-                  - Value:
-                      Key: date-time
-                  - Value: Gets/sets the date and time at which the event has been created
-                  BaseUri: https://json-everything.net/e911d1db04
-                metadata:
-                  Keywords:
-                  - Type: Object
-                  - Schema:
-                      Keywords:
-                      - Type: String
-                      BaseUri: https://json-everything.net/024fea8188
-                  - Value: Gets/sets the event's metadata
-                  BaseUri: https://json-everything.net/95cd66604a
-            BaseUri: https://json-everything.net/180c4558c5
-      consumeLightMeasuredRequest:
+          Keywords:
+          - Type: Object
+          - Properties:
+              id:
+                Keywords:
+                - Type: String
+                - Value: &o0
+                    Key: uuid
+                - Value: Gets/sets the id of the measured light
+                BaseUri: https://json-everything.net/c8f005bb90
+              type:
+                Keywords:
+                - Values:
+                  - LED
+                  - HPS
+                - Value: Gets/sets the type of the measured light
+                BaseUri: https://json-everything.net/73baa5a283
+              lumens:
+                Keywords:
+                - Type: Integer
+                - Value: Gets/sets the specified light's lumens measurement
+                BaseUri: https://json-everything.net/3d0b3d0697
+              sentAt:
+                Keywords:
+                - Type: String
+                - Value: &o1
+                    Key: date-time
+                - Value: Gets/sets the date and time at which the event has been created
+                BaseUri: https://json-everything.net/1c4ef1fac6
+              metadata:
+                Keywords:
+                - Type: Object
+                - Schema:
+                    Keywords:
+                    - Type: String
+                    BaseUri: https://json-everything.net/15c6a66786
+                - Value: Gets/sets the event's metadata
+                BaseUri: https://json-everything.net/ad235c1830
+          BaseUri: https://json-everything.net/26db498c7e
+        name: LightMeasured
+        title: Light Measured
+        summary: A message used to measure light
+        description: A message used to measure light
+        tags:
+        - name: light
+          description: A tag for light-related messages
+        - name: measurement
+          description: A tag for measurement-related messages
+        examples:
+          Minimal: {}
+          Extended:
+            id: 00000000-0000-0000-0000-000000000000
+            type: LED
+            lumens: 88
+            sentAt: 2025-05-26T10:57:30.4121499+01:00
+            metadata:
+              property1: string
+              property2: string
+              property3: string
+      summary: Consumes a light measured event from RabbitMQ.
+      description: Receives notifications about environmental lighting conditions for a particular streetlight.
+    publish:
+      operationId: PublishLightMeasured
+      message:
         payload:
-          schemaFormat: application/vnd.aai.asyncapi+json;version=3.0.0
-          schema:
-            Keywords:
-            - Type: Object
-            - Properties:
-                id:
-                  Keywords:
-                  - Type: String
-                  - Value:
-                      Key: uuid
-                  - Value: Gets/sets the id of the measured light
-                  BaseUri: https://json-everything.net/ea0aa1f3f6
-                type:
-                  Keywords:
-                  - Values:
-                    - LED
-                    - HPS
-                  - Value: Gets/sets the type of the measured light
-                  BaseUri: https://json-everything.net/2f91c08e04
-                lumens:
-                  Keywords:
-                  - Type: Integer
-                  - Value: Gets/sets the specified light's lumens measurement
-                  BaseUri: https://json-everything.net/21e04b1656
-                sentAt:
-                  Keywords:
-                  - Type: String
-                  - Value:
-                      Key: date-time
-                  - Value: Gets/sets the date and time at which the event has been created
-                  BaseUri: https://json-everything.net/865edd40ad
-                metadata:
-                  Keywords:
-                  - Type: Object
-                  - Schema:
-                      Keywords:
-                      - Type: String
-                      BaseUri: https://json-everything.net/96bdb950e7
-                  - Value: Gets/sets the event's metadata
-                  BaseUri: https://json-everything.net/8620741bb9
-            BaseUri: https://json-everything.net/17153480d5
-    description: 'This channel is used to exchange messages about lightning measurements.'
-    servers:
-    - $ref: '#/servers/mosquitto'
-    bindings:
-      IsReference: true
-      $ref: '#/components/channelBindings/amqp'
-operations:
-  publishLightMeasured:
-    action: send
-    channel:
-      $ref: '#/channels/light.measured'
-    description: 'Publishes a light measured event to RabbitMQ.'
-    messages:
-    - $ref: '#/channels/light.measured/messages/publishLightMeasuredRequest'
-    bindings:
-      IsReference: true
-      $ref: '#/components/operationBindings/amqp'
-  consumeLightMeasured:
-    action: receive
-    channel:
-      $ref: '#/channels/light.measured'
-    description: 'Consumes a light measured event from RabbitMQ.'
-    messages:
-    - $ref: '#/channels/light.measured/messages/consumeLightMeasuredRequest'
-    bindings:
-      IsReference: true
-      $ref: '#/components/operationBindings/amqp'
+          Keywords:
+          - Type: Object
+          - Properties:
+              id:
+                Keywords:
+                - Type: String
+                - Value: *o0
+                - Value: Gets/sets the id of the measured light
+                BaseUri: https://json-everything.net/73fe16a8bd
+              type:
+                Keywords:
+                - Values:
+                  - LED
+                  - HPS
+                - Value: Gets/sets the type of the measured light
+                BaseUri: https://json-everything.net/ac88bca9d0
+              lumens:
+                Keywords:
+                - Type: Integer
+                - Value: Gets/sets the specified light's lumens measurement
+                BaseUri: https://json-everything.net/1d8ea245c7
+              sentAt:
+                Keywords:
+                - Type: String
+                - Value: *o1
+                - Value: Gets/sets the date and time at which the event has been created
+                BaseUri: https://json-everything.net/26c7c44f07
+              metadata:
+                Keywords:
+                - Type: Object
+                - Schema:
+                    Keywords:
+                    - Type: String
+                    BaseUri: https://json-everything.net/c11a9a9128
+                - Value: Gets/sets the event's metadata
+                BaseUri: https://json-everything.net/84fbb44639
+          BaseUri: https://json-everything.net/cf855cfc06
+        name: LightMeasured
+        title: Light Measured
+        summary: A message used to measure light
+        description: A message used to measure light
+        tags:
+        - name: light
+          description: A tag for light-related messages
+        - name: measurement
+          description: A tag for measurement-related messages
+        examples:
+          Minimal: {}
+          Extended:
+            id: 00000000-0000-0000-0000-000000000000
+            type: LED
+            lumens: 37
+            sentAt: 2025-05-26T10:57:30.3954496+01:00
+            metadata:
+              property1: string
+              property2: string
+              property3: string
+      summary: Publishes a light measured event to RabbitMQ.
+      description: Notifies remote consumers about environmental lighting conditions for a particular streetlight.
 components:
-  serverBindings:
-    http:
-      http:
-        bindingVersion: latest
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth2 authentication for the API
+      scheme: Bearer
+      flows:
+        clientCredentials:
+          authorizationUrl: https://your-auth-server.com/token
+          scopes:
+            api:read: Read access to API
+            api:write: Write access to API
   channelBindings:
     amqp:
-      amqp1:
+      amqp:
         bindingVersion: latest
   operationBindings:
     amqp:
       amqp:
-        bindingVersion: 0.3.0
+        cc:
+        - light.measured
+        deliveryMode: persistent
+        bindingVersion: latest
