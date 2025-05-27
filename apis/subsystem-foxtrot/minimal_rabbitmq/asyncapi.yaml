@@ -135,15 +135,14 @@ operations:
       $ref: '#/components/operationBindings/amqpOperationBinding'
 components:
   securitySchemes:
-    OAuth2:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: https://your-auth-server.com/token
-          tokenUrl: https://your-auth-server.com/token
-          scopes:
-            read:lights: Read street lights
-            write:lights: Write street lights
+    type: oauth2
+    flows:
+      authorizationCode:
+        authorizationUrl: https://your-auth-server.com/token
+        tokenUrl: https://your-auth-server.com/token
+        scopes:
+          read:lights: Read street lights
+          write:lights: Write street lights
   serverBindings:
     http:
       http:
