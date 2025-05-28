@@ -149,7 +149,6 @@ components:
         bindingVersion: latest
   channelBindings:
     amqpBinding:
-      amqp:
         exchange:
           name: light.measured.exchange
           type: direct
