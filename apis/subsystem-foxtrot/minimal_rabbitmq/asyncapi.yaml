@@ -15,7 +15,6 @@ servers:
     security:
     - IsReference: true
       $ref: '#/components/securitySchemes/OAuth2'
-    x-custom-field: "some value"  # Custom field added to info object
 defaultContentType: application/json
 channels:
   light.measured:
@@ -34,37 +33,36 @@ channels:
                   - Value:
                       Key: uuid
                   - Value: Gets/sets the id of the measured light
-                  BaseUri: https://json-everything.net/fc30b7b8ca
+                  BaseUri: https://json-everything.net/10ed03f89a
                 type:
                   Keywords:
                   - Values:
                     - LED
                     - HPS
                   - Value: Gets/sets the type of the measured light
-                  BaseUri: https://json-everything.net/9429f18774
+                  BaseUri: https://json-everything.net/157d68f0ab
                 lumens:
                   Keywords:
                   - Type: Integer
                   - Value: Gets/sets the specified light's lumens measurement
-                  BaseUri: https://json-everything.net/529a2af6c5
+                  BaseUri: https://json-everything.net/c58e5f2736
                 sentAt:
                   Keywords:
                   - Type: String
                   - Value:
                       Key: date-time
                   - Value: Gets/sets the date and time at which the event has been created
-                  BaseUri: https://json-everything.net/4e6d3246c5
+                  BaseUri: https://json-everything.net/13abd0f8a4
                 metadata:
                   Keywords:
                   - Type: Object
                   - Schema:
                       Keywords:
                       - Type: String
-                      BaseUri: https://json-everything.net/6470597a40
+                      BaseUri: https://json-everything.net/d75be98a03
                   - Value: Gets/sets the event's metadata
-                  BaseUri: https://json-everything.net/fb0d19efe8
-            BaseUri: https://json-everything.net/a0d805ce54
-            x-custom-field-2: "some value2"  # Custom field added to info object
+                  BaseUri: https://json-everything.net/7c7e68390c
+            BaseUri: https://json-everything.net/caa3fb8de7
       consumeLightMeasuredRequest:
         payload:
           schemaFormat: application/vnd.aai.asyncapi+json;version=3.0.0
@@ -78,36 +76,36 @@ channels:
                   - Value:
                       Key: uuid
                   - Value: Gets/sets the id of the measured light
-                  BaseUri: https://json-everything.net/c0085a0c27
+                  BaseUri: https://json-everything.net/77dff846e5
                 type:
                   Keywords:
                   - Values:
                     - LED
                     - HPS
                   - Value: Gets/sets the type of the measured light
-                  BaseUri: https://json-everything.net/aa5ffb81fb
+                  BaseUri: https://json-everything.net/080c5fb28d
                 lumens:
                   Keywords:
                   - Type: Integer
                   - Value: Gets/sets the specified light's lumens measurement
-                  BaseUri: https://json-everything.net/45a88cd4ca
+                  BaseUri: https://json-everything.net/d481f4c024
                 sentAt:
                   Keywords:
                   - Type: String
                   - Value:
                       Key: date-time
                   - Value: Gets/sets the date and time at which the event has been created
-                  BaseUri: https://json-everything.net/78fe262dca
+                  BaseUri: https://json-everything.net/7c63bb6f26
                 metadata:
                   Keywords:
                   - Type: Object
                   - Schema:
                       Keywords:
                       - Type: String
-                      BaseUri: https://json-everything.net/35017c7df7
+                      BaseUri: https://json-everything.net/30e24182d2
                   - Value: Gets/sets the event's metadata
-                  BaseUri: https://json-everything.net/31383df343
-            BaseUri: https://json-everything.net/0222f060eb
+                  BaseUri: https://json-everything.net/614f92391e
+            BaseUri: https://json-everything.net/aba8035538
     description: 'This channel is used to exchange messages about lightning measurements.'
     servers:
     - $ref: '#/servers/mosquitto'
@@ -145,6 +143,10 @@ components:
           availableScopes:
             read:lights: Read street lights
             write:lights: Write street lights
+  serverBindings:
+    httpServerBinding:
+      http:
+        bindingVersion: latest
   channelBindings:
     amqpBinding: {}
   operationBindings:
