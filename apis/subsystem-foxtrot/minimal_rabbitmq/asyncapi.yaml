@@ -149,15 +149,15 @@ components:
         bindingVersion: latest
   channelBindings:
     amqpBinding:
-        exchange:
-          name: light.measured.exchange
-          type: direct
-          durable: true
-          vhost: /
-        queue:
-          name: light.measured.queue
-          durable: true
-          vhost: /
-        bindingVersion: 0.3.0
+      exchange:
+        name: light.measured.exchange
+        type: direct
+        durable: true
+        vhost: /
+      queue:
+        name: light.measured.queue
+        durable: true
+        vhost: /
+      bindingVersion: 0.3.0
   operationBindings:
     amqpOperationBinding: {}
