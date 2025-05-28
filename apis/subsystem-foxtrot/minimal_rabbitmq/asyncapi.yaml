@@ -164,5 +164,4 @@ components:
       bindingVersion: 0.3.0
   operationBindings:
     amqpOperationBinding:
-      amqp:
-        bindingVersion: 0.3.0
+      bindingVersion: 0.3.0
