@@ -149,7 +149,6 @@ components:
         bindingVersion: latest
   channelBindings:
     amqpBinding:
-      amqp:
         bindingVersion: 0.3.0
   operationBindings:
     amqpOperationBinding: {}
