@@ -33,36 +33,36 @@ channels:
                   - Value:
                       Key: uuid
                   - Value: Gets/sets the id of the measured light
-                  BaseUri: https://json-everything.net/6449aed4b2
+                  BaseUri: https://json-everything.net/0558d2672a
                 type:
                   Keywords:
                   - Values:
                     - LED
                     - HPS
                   - Value: Gets/sets the type of the measured light
-                  BaseUri: https://json-everything.net/456b1336ea
+                  BaseUri: https://json-everything.net/811e49aabe
                 lumens:
                   Keywords:
                   - Type: Integer
                   - Value: Gets/sets the specified light's lumens measurement
-                  BaseUri: https://json-everything.net/25afa81d51
+                  BaseUri: https://json-everything.net/55997a2dfa
                 sentAt:
                   Keywords:
                   - Type: String
                   - Value:
                       Key: date-time
                   - Value: Gets/sets the date and time at which the event has been created
-                  BaseUri: https://json-everything.net/3cd2f40b0c
+                  BaseUri: https://json-everything.net/608400c084
                 metadata:
                   Keywords:
                   - Type: Object
                   - Schema:
                       Keywords:
                       - Type: String
-                      BaseUri: https://json-everything.net/c913ecc744
+                      BaseUri: https://json-everything.net/1ee2007b3e
                   - Value: Gets/sets the event's metadata
-                  BaseUri: https://json-everything.net/b841510cbf
-            BaseUri: https://json-everything.net/49e247ee46
+                  BaseUri: https://json-everything.net/a6129e27c2
+            BaseUri: https://json-everything.net/657f05acd7
       consumeLightMeasuredRequest:
         payload:
           schemaFormat: application/vnd.aai.asyncapi+json;version=3.0.0
@@ -76,36 +76,36 @@ channels:
                   - Value:
                       Key: uuid
                   - Value: Gets/sets the id of the measured light
-                  BaseUri: https://json-everything.net/bedf28f706
+                  BaseUri: https://json-everything.net/86d600ec1c
                 type:
                   Keywords:
                   - Values:
                     - LED
                     - HPS
                   - Value: Gets/sets the type of the measured light
-                  BaseUri: https://json-everything.net/fbbc77b0e4
+                  BaseUri: https://json-everything.net/f7f37312a5
                 lumens:
                   Keywords:
                   - Type: Integer
                   - Value: Gets/sets the specified light's lumens measurement
-                  BaseUri: https://json-everything.net/8c91f18e0b
+                  BaseUri: https://json-everything.net/242913f758
                 sentAt:
                   Keywords:
                   - Type: String
                   - Value:
                       Key: date-time
                   - Value: Gets/sets the date and time at which the event has been created
-                  BaseUri: https://json-everything.net/189bb02f2d
+                  BaseUri: https://json-everything.net/47121dc2d8
                 metadata:
                   Keywords:
                   - Type: Object
                   - Schema:
                       Keywords:
                       - Type: String
-                      BaseUri: https://json-everything.net/17cebec3dd
+                      BaseUri: https://json-everything.net/8c28c3f1c5
                   - Value: Gets/sets the event's metadata
-                  BaseUri: https://json-everything.net/c558fa0205
-            BaseUri: https://json-everything.net/a7abb1d7d3
+                  BaseUri: https://json-everything.net/11774c497a
+            BaseUri: https://json-everything.net/111571d49a
     description: 'This channel is used to exchange messages about lightning measurements.'
     servers:
     - $ref: '#/servers/mosquitto'
@@ -148,7 +148,18 @@ components:
       http:
         bindingVersion: latest
   channelBindings:
-    amqpBinding: {}
+    amqpBinding:
+      amqp:
+        exchange:
+          name: light.measured.exchange
+          type: direct
+          durable: true
+          vhost: /
+        queue:
+          name: light.measured.queue
+          durable: true
+          vhost: /
+        bindingVersion: 0.3.0
   operationBindings:
     amqpOperationBinding:
       amqp:
