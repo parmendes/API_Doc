@@ -140,7 +140,7 @@ components:
       flows:
         implicit:
           authorizationUrl: https://your-auth-server.com/token
-          scopes:
+          availableScopes:
             read:lights: Read street lights
             write:lights: Write street lights
     X509:
