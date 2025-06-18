@@ -46,6 +46,10 @@ builder.Services.AddVersionedApiExplorer(options =>
 // Setting up Swagger for API documentation
 // Swagger is a tool that generates interactive API documentation, making it easier to test and understand the API.
 builder.Services.AddEndpointsApiExplorer();
+
+// Adds an HTTP context accessor to access the current HTTP context, useful for dynamic server URLs in Swagger.
+builder.Services.AddHttpContextAccessor(); 
+
 builder.Services.AddSwaggerGen(options =>
 {
     // Dynamically generate Swagger documentation for each API version
@@ -86,6 +90,8 @@ builder.Services.AddSwaggerGen(options =>
     {
         options.IncludeXmlComments(xmlPath); // Adds detailed comments from the XML file to the documentation.
     }
+
+    options.OperationFilter<DynamicServerOperationFilter>(); // Adds a filter to dynamically set the server URL based on the current HTTP context.
 });
 
 var app = builder.Build();
@@ -119,6 +125,18 @@ if (app.Environment.IsDevelopment())
         }
     });
 }
+
+// Global exception handling middleware
+// This middleware catches unhandled exceptions and returns a generic error response.
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        context.Response.StatusCode = 500;
+        context.Response.ContentType = "application/json";
+        await context.Response.WriteAsync("{\"error\": \"An unexpected error occurred.\"}");
+    });
+});
 
 app.UseHttpsRedirection(); // Redirect HTTP requests to HTTPS for secure communication.
 app.MapControllers(); // Map controller endpoints to the routing system.

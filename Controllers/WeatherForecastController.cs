@@ -81,6 +81,11 @@ public class WeatherForecastController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)] // Indicates that this method returns a 201 Created status.
     public IActionResult Post([FromBody] WeatherForecast forecast)
     {
+        // Validates the incoming forecast data.
+        // If the model state is invalid, it returns a BadRequest response with the validation errors
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
         // Returns a response indicating that the resource was created successfully.
         return CreatedAtAction(nameof(Get), new { id = forecast.Date }, forecast);
     }
