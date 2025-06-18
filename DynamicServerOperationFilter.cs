@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
+/// <summary>
+/// Operation filter to dynamically set the server URL based on the current HTTP request.
+/// This is useful for generating Swagger documentation with the correct server URL,
+/// </summary>
 public class DynamicServerOperationFilter : IOperationFilter
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
@@ -16,12 +20,8 @@ public class DynamicServerOperationFilter : IOperationFilter
         var request = _httpContextAccessor.HttpContext?.Request;
         if (request != null)
         {
-            var baseUrl = $"{request.Scheme}://{request.Host}";
-
-            operation.Servers =
-            [
-                new OpenApiServer { Url = baseUrl, Description = "Dynamic server URL" }
-            ];
+            var serverUrl = $"{request.Scheme}://{request.Host.Value}";
+            operation.Servers = new List<OpenApiServer> { new OpenApiServer { Url = serverUrl } };
         }
     }
 }

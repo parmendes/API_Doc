@@ -1,4 +1,5 @@
-    using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyBackstageAPI.Controllers;
 
@@ -6,9 +7,9 @@ namespace MyBackstageAPI.Controllers;
 // The ApiVersion attributes specify that this controller supports API versions 1.0 and 2.0.
 // The Route attribute defines the base URL for this controller, including the version placeholder.
 [ApiController]
+[Route("api/v{version:apiVersion}/[controller]")]
 [ApiVersion("1.0")]
 [ApiVersion("2.0")]
-[Route("api/v{version:apiVersion}/[controller]")]
 public class WeatherForecastController : ControllerBase
 {
     // This is a static array of weather summaries that will be used to generate random weather data.
